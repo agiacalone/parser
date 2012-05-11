@@ -1,0 +1,85 @@
+#!/usr/bin/python3
+
+# import scanner and all its tables
+import sys
+sys.path.append('scanner')
+from scanner import *
+from output import *
+from parser_tokens import *
+from parsetable import *
+
+# Simple function to remove specified values from an array
+def remove_values_from_list(the_list, val):
+    while val in the_list:
+        the_list.remove(val)
+        
+try:
+    filename = output.open_file()
+    scanned_file = open(filename).read().strip(' ')  # read in file and strip lead/trail whitespace
+except:
+    exit(1)
+
+scan_results = scanner.scan_tokens(scanned_file)
+val_result = []
+stack = [1]   # Should always start with a 1 in the stack
+counter = 0
+
+# Remove comments and whitespace from the scan results
+remove_values_from_list(scan_results, 'comment')
+remove_values_from_list(scan_results, ' ')
+
+# Build an array of values that correspond to the states read in from the scanner
+while counter < len(scan_results):
+    val_result.append(parser_tokens.get_token(scan_results[counter]))
+    counter += 1
+
+# Reverse the values in the array for clean popping
+val_result.reverse()
+scan_results.reverse()
+
+# Create the array for final printing
+parser_print = []
+
+# Do stuff
+while len(val_result) > 0:
+    # stacktop is the top of the stack, which are the non-terms      
+    try:
+        stacktop = stack[len(stack)-1]
+    except:
+        try:
+            stacktop = stack[0]
+        except:                     # empty stacks are bad
+            print("Uh oh. The stack is empty! Something went wrong.")
+            exit(1)
+            
+    # token number is the scanned result of the terms--should be a negative number        
+    token_number = val_result[len(val_result)-1]
+    
+    # current_token is the textual representation of the character for printing purposes
+    current_token = scan_results[len(scan_results)-1]
+            
+    if stacktop > 0:   
+        # Get array index from the lookup table
+        table_entry = parsetable.getparval(stacktop, abs(token_number))
+        parser_print += "Fire" + ' ' + str(table_entry) + '\n'        
+        stack.pop()
+        
+        # Append the stack with the values of the next states
+        stack.extend(parser_tokens.get_val(table_entry))
+    
+    elif stacktop <= token_number:  # match and pop
+        parser_print += "Match and Pop" + ' ' + str(current_token) + '\n'
+        
+        if current_token == 'stop':
+            parser_print += "Goooooaaaaaalllll!!!!" + '\n'
+            output.output_gui('Parser:', 'Parse Results', parser_print)
+            exit(1)
+        
+        # Pop stuff off of the stack and arrays
+        stack.pop()        
+        scan_results.pop()
+        val_result.pop()
+
+    else:
+        print("Error. I am dead.")
+        exit(1) 

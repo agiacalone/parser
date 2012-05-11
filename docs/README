@@ -1,0 +1,7 @@
+The parser is complete according to the specifications outlined on the project sheet. Two samples have been provided, along with screenshots of the GUI. Some highlights:
+
+1. Complete GUI input and output with file selection
+2. Fully integrated with the scanner
+3. 'Plug and Play' tables and lookup tokens -- easily altered or integrated with other programs
+4. Class structure is made to allow further development
+5. Error handling (try/catch) for bad input

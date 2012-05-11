@@ -1,0 +1,23 @@
+goal -> libtoken libtoken_tail start | start
+libtoken_tail -> libtoken libtoken_tail | LAMBDA
+libtoken -> library
+start -> code | LAMBDA
+code -> program id ; variables main end
+variables -> var variable_type : prim_type ; variable_type_tail
+variable_type_tail -> variable_type : prim_type ; variable_type_tail | LAMBDA
+variable_type -> variable variable_tail
+variable_tail -> , variable variable_tail | LAMBDA
+variable -> id
+prim_type -> int | real | sci | currency | string
+main -> begin statement_list return int ;
+statement_list -> statement statement_tail
+statement_tail -> statement statement_tail | LAMBDA
+statement -> id := expression ; | device_open file ; | for id := id to id do statement_list end do ; | repeat do statement_list until ( boolean ) end do ; | while ( boolean ) do statement_list end do ; | if ( boolean ) then begin statement_list end ; else begin statement_list end ; | device_close file ; | read_from_device file ; | write_to_device file ; | writeln ( expression ) ; | readln ( variable_type ) ;
+boolean -> expression relational_op expression
+relational_op -> < | > | <= | >= | == | !=
+expression -> primary primary_tail | string
+primary_tail -> + primary primary_tail | - primary primary_tail | LAMBDA
+primary -> secondary secondary_tail
+secondary_tail -> * secondary secondary_tail | / secondary secondary_tail | LAMBDA
+secondary -> ( expression ) | id | int | real | sci | currency | abs ( expression ) | fabs ( expression )
+end -> end.

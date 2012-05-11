@@ -1,0 +1,9 @@
+#include<string>
+program test2;
+var
+cat,dog,goat,flea:int;
+cat1,dog1,goat1,flea1:string;
+begin
+writeln(bob);
+return 0;
+stop
