@@ -20,4 +20,4 @@ primary_tail -> + primary primary_tail | - primary primary_tail | LAMBDA
 primary -> secondary secondary_tail
 secondary_tail -> * secondary secondary_tail | / secondary secondary_tail | LAMBDA
 secondary -> ( expression ) | id | int | real | sci | currency | abs ( expression ) | fabs ( expression )
-end -> end.
+end -> stop
