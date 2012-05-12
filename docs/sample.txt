@@ -6,7 +6,10 @@
 //using namespace std;
 program test1;
 var
-    arm,leg:string;  //currency
+    arm,leg:currency;  //currency
+    a,b,ab:string;     //string variables
+    c,d,cd:int;        //integer variables
+    e,gee:real;        //float type
 
 begin //start of the main code
     a:="hello";
@@ -20,6 +23,5 @@ begin //start of the main code
     gee:=c+e;       /*add singed integers and reals */
     read_from_device[A:file.test];
     write_to_device[A:test];
-    //for ant:=bear to cat do readln(sam,bob); end do;
     return 0;
 stop //end program

@@ -2,6 +2,7 @@ The parser is complete according to the specifications outlined on the project s
 
 1. Complete GUI input and output with file selection
 2. Fully integrated with the scanner
-3. 'Plug and Play' tables and lookup tokens -- easily altered or integrated with other programs
-4. Class structure is made to allow further development
-5. Error handling (try/catch) for bad input
+3. Built to recognize pop and scan errors, and report the issue appropriately.
+4. 'Plug and Play' tables and lookup tokens -- easily altered or integrated with other programs
+5. Class structure is made to allow further development
+6. Error handling (try/catch) for bad input

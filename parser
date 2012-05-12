@@ -40,6 +40,9 @@ scan_results.reverse()
 # Create the array for final printing
 parser_print = []
 
+print(val_result)
+print(scan_results)
+
 # Do stuff
 while len(val_result) > 0:
     # stacktop is the top of the stack, which are the non-terms      
